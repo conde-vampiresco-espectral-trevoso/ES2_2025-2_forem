@@ -1,0 +1,50 @@
+import { h } from 'preact';
+import { withKnobs, object, text, boolean } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { Article } from '..';
+import {
+  videoArticle,
+  assetPath,
+} from '../__tests__/utilities/articleUtilities';
+
+import '../../../assets/stylesheets/articles.scss';
+
+const ICONS = {
+  COMMENTS_ICON: assetPath('comments-bubble.png'),
+  VIDEO_ICON: assetPath('video-camera.svg'),
+};
+
+const commonProps = {
+  bookmarkClick: action('Saved/unsaved article'),
+};
+
+export default {
+  title: 'App Components/Article/Video',
+  decorators: [withKnobs],
+};
+
+export const Default = () => (
+  <Article
+    {...commonProps}
+    commentsIcon={text('commentsIcon', ICONS.COMMENTS_ICON)}
+    videoIcon={text('videoIcon', ICONS.VIDEO_ICON)}
+    isBookmarked={boolean('isBookmarked', false)}
+    article={object('article', videoArticle)}
+    currentTag={text('currentTag', 'javascript')}
+  />
+);
+
+Default.storyName = 'default';
+
+export const VideoArticleWithFlareTag = () => (
+  <Article
+    {...commonProps}
+    commentsIcon={text('commentsIcon', ICONS.COMMENTS_ICON)}
+    videoIcon={text('videoIcon', ICONS.VIDEO_ICON)}
+    isBookmarked={boolean('isBookmarked', false)}
+    article={object('article', videoArticle)}
+    currentTag={text('currentTag')}
+  />
+);
+
+VideoArticleWithFlareTag.storyName = 'video with flare tag';

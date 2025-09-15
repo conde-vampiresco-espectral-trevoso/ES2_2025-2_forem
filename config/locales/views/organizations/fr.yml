@@ -1,0 +1,44 @@
+---
+fr:
+  views:
+    organizations:
+      empty: 404 bio not found
+      external:
+        icon: External link icon
+      follow: Suivre
+      github:
+        icon: GitHub logo
+      joined:
+        icon: Rejoint
+        text_html: "Rejoint le\_%{date}"
+      location:
+        icon: Lieu
+      logo: "%{org} profile picture"
+      size: Employees
+      sponsor:
+        text: "%{level} Community Sponsor ❤️"
+        level:
+          gold: Gold
+          silver: Silver
+          bronze: Bronze
+          tag: Tag
+          media: Media
+          devrel: Devrel
+      stack: Our stack
+      story: Our story
+      side:
+        post:
+            icon: Post
+            text:
+              one: 1 post published
+              other: "%{count} posts published"
+        member:
+          icon: Member
+          text:
+            one: 1 member
+            other: "%{count} members"
+      support: Support email
+      team: Meet the team
+      all_members: See All Members
+      twitter:
+        icon: Twitter logo

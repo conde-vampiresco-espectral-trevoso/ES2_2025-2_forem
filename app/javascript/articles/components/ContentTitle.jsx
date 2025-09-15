@@ -1,0 +1,28 @@
+import { h } from 'preact';
+import { articlePropTypes } from '../../common-prop-types';
+
+export const ContentTitle = ({ article }) => (
+  <h3 className={`crayons-story__title crayons-story__title-${article.type_of}`}>
+    <a href={article.url} id={`article-link-${article.id}`}>
+      {article.class_name === 'PodcastEpisode' && (
+        <span className="crayons-story__flare-tag">podcast</span>
+      )}
+      {article.class_name === 'User' && (
+        <span
+          className="crayons-story__flare-tag"
+          style={{ background: '#5874d9', color: 'white' }}
+        >
+          person
+        </span>
+      )}
+      {/* eslint-disable-next-line react/no-danger */}
+      {article.title === '[Boost]' ? <span class='crayons-story__innertitle-boost'>Boosted by <a href={`/${article.user.username}`}>{article.user.name}</a></span> : <span dangerouslySetInnerHTML={{ __html: article.type_of === 'status' && article.title_finalized ? article.title_finalized : filterXSS(article.title) }} />}
+    </a>
+  </h3>
+);
+
+ContentTitle.propTypes = {
+  article: articlePropTypes.isRequired,
+};
+
+ContentTitle.displayName = 'ContentTitle';

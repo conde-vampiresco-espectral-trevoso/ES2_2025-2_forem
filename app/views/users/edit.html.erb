@@ -1,0 +1,101 @@
+<% title t("views.settings.meta.title") %>
+
+<main id="main-content">
+  <% if flash[:settings_notice] %>
+    <div class="crayons-banner" aria-live="polite">
+      <%= flash[:settings_notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:error].present? %>
+    <div class="crayons-banner crayons-banner--error" role="alert">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+
+  <% if params[:state] == "previous-registration" %>
+    <div class="crayons-banner crayons-banner--error" role="alert">
+      <%= t("views.settings.previous", email: contact_link) %>
+      <%= t("contact_prompts.if_any_questions_html") %>
+    </div>
+  <% end %>
+
+  <div class="crayons-layout crayons-layout--header-inside crayons-layout--2-cols crayons-layout--limited-l">
+    <div class="crayons-layout__left-sidebar mt-3">
+      <nav class="hidden m:block" aria-label="Settings">
+        <% Constants::Settings::TAB_LIST.each do |possible_tab| %>
+          <a class="crayons-link crayons-link--block <% if @tab == possible_tab.downcase.tr(' ', '-') %>crayons-link--current<% end %>" href="/settings/<%= possible_tab.downcase.tr(" ", "-") %>">
+            <%= crayons_icon_tag("twemoji/#{possible_tab.downcase.tr(' ', '-')}", native: true, title: t("views.settings.tab.#{possible_tab}")) %>
+            <%= t("views.settings.tab.#{possible_tab}") %>
+          </a>
+        <% end %>
+      </nav>
+      <div class="m:hidden p-2 pt-0">
+        <select id="mobile-page-selector" class="crayons-select">
+          <% Constants::Settings::TAB_LIST.each do |possible_tab| %>
+            <option value="/settings/<%= possible_tab.downcase.tr(" ", "-") %>" <% if @tab == possible_tab.downcase.tr(' ', '-') %> selected <% end %>>
+              <%= t("views.settings.tab.#{possible_tab}") %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="crayons-layout__content mt-3">
+      <div class="crayons-page-header">
+        <% if @tab == "organization" && @organizations.present? %>
+          <% if !@organization&.new_record? %>
+            <section class="flex m:flex-row justify-between w-100 mb-4 flex-col">
+              <% options = @organizations.pluck(:slug, :id).each do |arr| %>
+                <% arr[0] = "@#{arr[0]}" %>
+                <% arr[1] = "/settings/organization/#{arr[1]}" %>
+              <% end %>
+              <%= tag.select(options_for_select(options, "/settings/organization/#{params[:org_id]}"), class: "crayons-select lh-tight m:w-25 align-text-top m:mb-0 m:w-max w-100 mb-2", onchange: "window.location.href=this.value") %>
+              <%# For example: %>
+              <%# <option value="/settings/organization/1>@devteam</option> %>
+              <%# <option value="/settings/organization/new" selected>New Organization</option> %>
+              <%= button_to url_for("/settings/organization/new"), class: "crayons-btn m:w-max w-100", method: :get do %>
+                <%= t("views.settings.new_org") %>
+              <% end %>
+            </section>
+          <% end %>
+        <% else %>
+          <h1 class="crayons-title">
+            <%= link_to("@#{@user.username.truncate(User::USERNAME_MAX_LENGTH)}", user_url(@user) || "#", class: "mb-4") %>
+          </h1>
+        <% end %>
+      </div>
+
+      <% if current_user.email.blank? %>
+        <div class="crayons-notice crayons-notice--warning mb-6" aria-live="polite">
+          <h3 class="mb-2"><%= t("views.settings.complete.heading") %></h3>
+          <p>
+            <%= t("views.settings.complete.desc") %>
+            <% if @user.twitter_username.blank? %>
+              <%= t("views.settings.complete.twitter") %>
+            <% elsif @user.github_username.blank? %>
+              <%= t("views.settings.complete.github") %>
+            <% end %>
+          </p>
+        </div>
+      <% end %>
+
+      <% if @user.unconfirmed_email.present? %>
+        <div class="crayons-notice crayons-notice--warning mb-6" role="alert">
+          <h3 class="mb-2"><%= t("views.settings.email") %></h3>
+          <p><%= t("views.settings.finalize_html", email: link_to(@user.unconfirmed_email, "mailto:#{@user.unconfirmed_email}")) %></p>
+        </div>
+      <% end %>
+
+      <% if @user.errors.any? %>
+        <%= render partial: "users/errors", locals: { errors: @user.errors, title_suffix: t("views.settings.errors.profile", count: @user.errors.size) } %>
+      <% end %>
+
+      <% if @organization&.errors&.any? %>
+        <%= render partial: "users/errors", locals: { errors: @organization.errors, title_suffix: t("views.settings.errors.org", count: @organization.errors.size) } %>
+      <% end %>
+
+      <%= render "users/#{@tab.tr('-', '_')}", tab: @tab %>
+    </div>
+  </div>
+</main>

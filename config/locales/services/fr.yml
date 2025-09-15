@@ -1,0 +1,112 @@
+---
+fr:
+  services:
+    analytics_service:
+      no_stats: Vous ne pouvez pas voir les statistiques de cet article.
+    article_with_video_creation_service:
+      unpublished_video: Vidéo non publiée ~ %{rand}
+    authentication:
+      authenticator:
+        not_allowed: Désolé, mais le domaine de votre adresse e-mail n'est pas autorisé. Ce Forem a peut-être limité l'inscription à certains domaines de messagerie ou bloqué l'accès à ce domaine spécifique.
+      providers:
+        apple:
+          name: "%{first} %{last}"
+        not_available: Le fournisseur %{name} n'est pas disponible !
+        not_enabled: Le fournisseur %{name} n'est pas activé !
+    badges:
+      award_beloved_comment:
+        message: "Vous êtes célèbre ! [C'est le commentaire](%{comment}) pour lequel vous êtes reconnu. 😄"
+      award_streak:
+        longest: 16 semaines ! Vous avez réalisé la plus longue séquence d’écriture possible. Continuez vos incroyables contributions à notre communauté!
+        message:
+          one: "Félicitations pour avoir réalisé cette séquence ! Une écriture cohérente est difficile. Le prochain badge de séquence que vous pouvez obtenir est le badge de semaine %{count}. 😉"
+          other: "Félicitations pour avoir réalisé cette séquence ! Une écriture cohérente est difficile. Le prochain badge de séquence que vous pouvez obtenir est le badge de semaine %{count}. 😉"
+      award_yearly_club:
+        message:
+          one: Joyeux anniversaire %{community} ! Pouvez-vous croire que cela fait déjà %{count} année ?!
+          other: Joyeux anniversaire %{community} ! Pouvez-vous croire que cela fait déjà %{count} années ?!
+      congrats: Félicitations pour votre succès! 🎉 Et merci d'être une partie si essentielle de %{community} !
+      thank_you: Merci beaucoup pour vos contributions !
+      community_wellness:
+        first: Merci de participer à une conversation constructive ! Vous avez posté deux commentaires ou plus cette semaine. Continuez comme ça pour poursuivre la série !
+        longest: 32 semaines ! Vous avez réalisé la plus longue séquence possible pour le badge Community Wellness. Un travail incroyable en m'engageant dans la communauté. Continuez vos incroyables contributions à notre communauté !
+        other: Félicitations, vous avez réalisé %{weeks} semaines consécutives pour le badge de bien-être communautaire ! Continuez à recevoir des commentaires constructifs pour continuer la séquence !
+      thumbs_up: Merci pour vos efforts en examinant les messages et en obtenant %{count} réactions positives !
+    broadcasts:
+      welcome_notification:
+        generator:
+          welcome: 'Notification de bienvenue : %{key}'
+    error_messages:
+      clean:
+        parse_error: Il y a eu un problème pour analyser la matière première YAML. Vous devez peut-être échapper une citation, un deux-points ou autre chose. Envoyez un e-mail à %{email} si vous avez des problèmes.
+    html:
+      parser:
+        enter_fullscreen_mode: Passer en mode plein écran
+        exit_fullscreen_mode: Sortir du mode en plein écran
+    markdown_processor:
+      parser:
+        invalid_markdown_detected: Markdown invalide détecté !
+    moderator:
+      banish_user:
+        spam_account: compte spam
+      manage_activity_and_roles:
+        need_super: Vous devez avoir le statut de super administrateur pour effectuer cette action
+      merge_user:
+        duplicate: L'utilisateur a des méthodes d'authentification en double sur les deux comptes. Veuillez vérifier et supprimer l'identité que l'utilisateur n'utilise plus. Il s'agit généralement du compte social déjà supprimé, ou de la méthode d'authentification liée à l'utilisateur à supprimer.
+        multiple: L'utilisateur à supprimer possède déjà deux méthodes d'authentification ou plus. Êtes-vous sûr qu'il s'agit du bon utilisateur à supprimer ? Si oui, un super administrateur devra le faire à partir de la console pour être sûr.
+        same_user: Vous ne pouvez pas fusionner les deux mêmes identifiants d'utilisateur.
+    notifications:
+      new_comment:
+        new: "💬 Nouveau commentaire"
+      new_mention:
+        new: "🗣️ Nouvelle mention"
+    payments:
+      customer:
+        usd: usd
+      errors:
+        select_payment_method: "Veuillez choisir un mode de paiement"
+      process_credit_purchase:
+        charge:
+          one: Achat de %{count} crédit.
+          other: Achat de %{count} crédits.
+    rate_limit_checker:
+      invalid_key: 'Clé de cache non valide : aucun composant unique présent'
+      limit_reached:
+        one: Limite de débit atteinte, réessayer dans %{count} seconde
+        other: Limite de débit atteinte, réessayer dans %{count} secondes
+    slack:
+      messengers:
+        article_fetched_feed:
+          body: |
+            Nouvel article récupéré via RSS : %{title}
+            %{url}
+        article_published:
+          body: |
+            Nouvel article publié : %{title}
+            %{url}
+        feedback:
+          anonymous_report: "*Rapport anonyme :"
+          final_message: |-
+            %{user_detail}
+            Categorie : %{category}
+            Rapport interne : %{reports_url}
+            *_ URL signalée : %{reported_url} _*
+            -----
+            *Message :* %{message}
+          body: |
+            *Utilisateur connecté :*
+            reporter: %{username} - %{url}
+            email: <mailto:%{email}|%{email}>
+        potential_spammer:
+          body: 'Utilisateur potentiel de spam ! %{url}'
+    spam:
+      article_handler:
+        suspended_too_many: Utilisateur suspendu pour trop d'articles spam, déclenché par autovomit.
+    user_subscriptions:
+      create_from_controller_params:
+        source_not_found: Source non trouvée.
+        email_mismatch: L'email de l'abonné ne correspond pas.
+    users:
+      remove_role:
+        remove_self: Les administrateurs ne peuvent pas se retirer des rôles.
+        error: Un problème est survenu lors de la suppression de ce rôle. %{e_message}

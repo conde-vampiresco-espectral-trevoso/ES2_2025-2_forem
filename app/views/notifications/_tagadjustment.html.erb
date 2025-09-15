@@ -1,0 +1,32 @@
+<div class="crayons-card notification">
+  <span class="crayons-avatar crayons-avatar--l m:crayons-avatar--xl shrink-0">
+    <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--LnVw15KE--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://thepracticaldev.s3.amazonaws.com/uploads/user/profile_image/31047/af153cd6-9994-4a68-83f4-8ddf3e13f0bf.jpg" class="crayons-avatar__image" alt="Sloan, the sloth mascot" width="48" height="48">
+  </span>
+
+  <div class="notification__content">
+    <% data = notification.json_data %>
+    <% removal = data["adjustment_type"] == "removal" %>
+      <h3 class="mb-2 color-base-90"><%= t("views.notifications.tag.heading") %></h3>
+      <p class="mb-4">
+        <%= t(
+              "views.notifications.tag.#{removal ? 'remove' : 'add'}_html",
+              tag: link_to("##{data['tag_name']}", "/t/#{data['tag_name']}"),
+              title: link_to(h(data["article"]["title"]), data["article"]["path"]),
+            ) %>
+      </p>
+      <% if data["reason_for_adjustment"].present? %>
+        <div class="crayons-card crayons-card--secondary p-4 mb-4">
+          <p class="color-base-70">
+            <strong><%= t("views.notifications.tag.reason") %></strong>
+            <em><%= data["reason_for_adjustment"] %></em>
+          </p>
+        </div>
+      <% end %>
+      <% if removal %>
+        <p class="mb-2"><%= t("views.notifications.tag.check_html", other: link_to(t("views.notifications.tag.other"), "/tags")) %></p>
+      <% end %>
+      <p>
+        <%= t("views.notifications.tag.support_html", community: community_name, email: t("contact_prompts.if_any_questions_html")) %>
+      </p>
+  </div>
+</div>

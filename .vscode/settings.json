@@ -1,0 +1,18 @@
+{
+  "rubyLsp.rubyVersionManager": {
+    "identifier": "auto"
+  },
+  "rubyLsp.formatter": "rubocop",
+  "files.watcherExclude": {
+    "**/tmp/**": true,
+    "**/log/**": true,
+    "**/node_modules/**": true,
+    "**/public/packs/**": true
+  },
+  "search.exclude": {
+    "**/tmp/**": true,
+    "**/log/**": true,
+    "**/node_modules/**": true,
+    "**/public/packs/**": true
+  }
+}

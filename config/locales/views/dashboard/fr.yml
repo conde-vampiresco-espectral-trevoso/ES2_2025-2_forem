@@ -1,0 +1,162 @@
+---
+fr:
+  views:
+    dashboard:
+      meta:
+        title: Dashboard - %{site}
+      heading: Tableau de bord
+      actions:
+        mobile:
+          posts: Publications (%{num})
+          followers: Suiveurs (%{num})
+          following_tags: Following tags (%{num})
+          following_users: Following users (%{num})
+          following_orgs: Following organizations (%{num})
+          following_pods: Following podcasts (%{num})
+          hidden_tags: Hidden tags (%{num})
+        posts: Publications
+        series: Séries
+        followers: Suiveurs
+        following_tags: Following tags
+        following_users: Following users
+        following_orgs: Following organizations
+        following_pods: Following podcasts
+        hidden_tags: Hidden tags
+        listings: Annonces
+        analytics: Analytique
+        for_org: Analytics for %{org}
+        upload: Charger une vidéo
+      analytics:
+        meta:
+          title: Analytics
+        heading: Analytics Dashboard for %{name}
+        back: "Back to Main Dashboard"
+        your: Your Dashboard
+        org: "%{org} Analytics Dashboard"
+        readers: Lecteurs
+        comments: Commentaires
+        reactions: Réactions
+      article:
+        heading:
+          text_html: "%{archived}%{title}"
+          archived: "[Archived] "
+        archived: Archived
+        published: 'Published:'
+        published_html: 'Published: %{date}'
+        edited: 'Edited:'
+        edited_html: 'Edited: %{date}'
+        series: 'Series:'
+        series_html: "<strong>Series:</strong> %{series}"
+        draft: Draft
+        scheduled: Scheduled
+        scheduled_at: 'Scheduled:'
+        reactions:
+          title: Reactions
+          icon: Reactions
+          text_html:
+            one: "%{num} reaction"
+            other: "%{num} reactions"
+        comments:
+          title: Comments
+          icon: Comments
+          text_html:
+            one: "%{num} comment"
+            other: "%{num} comments"
+        views:
+          title: Views
+          icon: Views
+          lt_25: "< 25"
+          text_html:
+            one: "%{scale} view"
+            other: "%{scale} views"
+          u_25: under 25
+        subscriptions:
+          title: Subscriptions
+          icon: Data
+          number: Subscriptions (%{num})
+        delete: Delete
+        unpin: Unpin
+        pin:
+          title: Pin to profile
+          button: Pin to profile
+          text: Pin
+        manage:
+          aria_label: 'Manage post: %{title}'
+          text: Manage
+        lock: Lock discussion
+        unlock: Unlock discussion
+        edit:
+          aria_label: 'Edit post: %{title}'
+          text: Edit
+        more:
+          title: 'More options for post: %{title}'
+          icon: More...
+        stats: Stats
+        archive: Archive post
+        unarchive: Unarchive post
+        author: Author
+        co_authors: Co-authors
+        series_author_change_warning: No author changes allowed for series posts.
+        icon: Details
+        author_is: 'AUTHOR: '
+        save: Save
+        submit: Submit author change
+      followers:
+        heading: Tableau de bord » Suiveurs
+        empty: Vous n'avez pas encore d'abonnés...
+      following_orgs:
+        heading: Dashboard » Following organizations
+        empty: You don't follow any organizations yet...
+      following_pods:
+        heading: Dashboard » Following podcasts
+        empty: You don't follow any podcasts yet...
+      following_tags:
+        heading: Dashboard » Following tags
+        empty_html: "<span>Follow tags to personalize your feed. You can explore popular tags <a href=%{link}>here</a></span>."
+      following_users:
+        heading: Tableau de bord » Utilisateurs suivis
+        empty: Vous ne suivez aucun utilisateur...
+      hidden_tags:
+        heading: Dashboard » Hidden tags
+        empty_html: "<span>You don't have any hidden tags...</span>"
+      tags:
+        following_button: Following
+        options:
+          icon: Options
+          hide: Hide tag
+        unhide_button: Unhide
+      listings:
+        meta:
+          title: Listings Dashboard
+      posts:
+        heading: Publications
+        archived: Show archived
+        statuses: Show quickie posts
+        full: Show full posts
+        option:
+          creation-desc: Recently Created
+          published-desc: Recently Published
+          views-desc: Most Views
+          reactions-desc: Most Reactions
+          comments-desc: Most Comments
+          aria_label: Sort By
+        org: "%{name} (%{num})"
+        personal: Personal
+        empty:
+          desc: C'est ici que vous pouvez gérer vos messages, mais vous n'avez encore rien écrit.
+          new: Écrivez votre premier message maintenant
+          status_desc: Vous n'avez pas encore de messages rapides ici...
+      subscriptions:
+        meta:
+          title: Subscriptions %{title}
+        heading: Subscriptions
+        subhead:
+          text_html: "%{for} %{source}"
+          for: for
+        empty: You don't have any subscribers for this %{kind} yet...
+      summary:
+        reactions: Total post reactions
+        views: Total post views
+        listings: Listings created
+        credits: Credits available
+        lt_500: "< 500"
