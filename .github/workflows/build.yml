@@ -14,10 +14,11 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Install dependencies
-        run: yarn
+        run: yarn && npx update-browserslist-db@latest
       - name: Test and coverage
         run: yarn jest --coverage
       - name: SonarQube Scan
+        if: always()
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
