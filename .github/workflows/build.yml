@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: yarn && npx update-browserslist-db@latest
       - name: Test and coverage
-        run: yarn jest --coverage -u
+        run: yarn jest -u
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
