@@ -16,8 +16,9 @@ jobs:
       - name: Install dependencies
         run: yarn && npx update-browserslist-db@latest
       - name: Test and coverage
-        run: yarn jest -u --verbose
+        run: yarn jest --coverage
       - name: SonarQube Scan
+        if: always()
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
