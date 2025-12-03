@@ -18,6 +18,7 @@ jobs:
       - name: Test and coverage
         run: yarn jest --coverage
       - name: SonarQube Scan
+        run: sonar-scanner -Dsonar.sourceEncoding=UTF-8 -Dsonar.exclusions=**/*.png,**/*.otf,**/*.ico,**/*.svg
         if: always()
         uses: SonarSource/sonarqube-scan-action@v6
         env:
