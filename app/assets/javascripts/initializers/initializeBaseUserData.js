@@ -53,47 +53,62 @@ function addRelevantButtonsToArticle(user) {
   }
 }
 
+function processSettingsButtons(user) {
+  var settingsButts = document.getElementsByClassName('comment-actions');
+
+  for (let i = 0; i < settingsButts.length; i += 1) {
+    let butt = settingsButts[i];
+    const { action, commentableUserId, userId } = butt.dataset;
+
+    const isOwner = parseInt(userId, 10) === user.id;
+    const isSettingsAction = action === 'settings-button';
+
+    if (isOwner && isSettingsAction) {
+      butt.innerHTML =
+        '<a href="' +
+        butt.dataset.path +
+        '" rel="nofollow" class="crayons-link crayons-link--block" data-no-instant>Settings</a>';
+      butt.classList.remove('hidden');
+      butt.classList.add('block');
+    }
+
+    const isHideButton = action === 'hide-button';
+    const isCommentableOwner = parseInt(commentableUserId, 10) === user.id;
+
+    if (isHideButton && isCommentableOwner) {
+      butt.classList.remove('hidden');
+      butt.classList.add('block');
+    }
+  }
+}
+
+function processModButtons() {
+  var modButts = document.getElementsByClassName('mod-actions');
+
+  for (let i = 0; i < modButts.length; i += 1) {
+    let butt = modButts[i];
+    if (butt.classList.contains('mod-actions-comment-button')) {
+      butt.innerHTML =
+        '<a href="' +
+        butt.dataset.path +
+        '" rel="nofollow" class="crayons-link crayons-link--block">Moderate</a>';
+    }
+    butt.className = 'mod-actions';
+    butt.classList.remove('hidden');
+    butt.classList.add('block');
+  }
+}
+
 function addRelevantButtonsToComments(user) {
-  if (document.getElementById('comments-container')) {
-    // buttons are actually <span>'s
-    var settingsButts = document.getElementsByClassName('comment-actions');
+  // Guard clause para reduzir aninhamento
+  if (!document.getElementById('comments-container')) {
+    return;
+  }
 
-    for (let i = 0; i < settingsButts.length; i += 1) {
-      let butt = settingsButts[i];
-      const { action, commentableUserId, userId } = butt.dataset;
-      if (parseInt(userId, 10) === user.id && action === 'settings-button') {
-        butt.innerHTML =
-          '<a href="' +
-          butt.dataset.path +
-          '" rel="nofollow" class="crayons-link crayons-link--block" data-no-instant>Settings</a>';
-        butt.classList.remove('hidden');
-        butt.classList.add('block');
-      }
+  processSettingsButtons(user);
 
-      if (
-        action === 'hide-button' &&
-        parseInt(commentableUserId, 10) === user.id
-      ) {
-        butt.classList.remove('hidden');
-        butt.classList.add('block');
-      }
-    }
-
-    if (user.trusted) {
-      var modButts = document.getElementsByClassName('mod-actions');
-      for (let i = 0; i < modButts.length; i += 1) {
-        let butt = modButts[i];
-        if (butt.classList.contains('mod-actions-comment-button')) {
-          butt.innerHTML =
-            '<a href="' +
-            butt.dataset.path +
-            '" rel="nofollow" class="crayons-link crayons-link--block">Moderate</a>';
-        }
-        butt.className = 'mod-actions';
-        butt.classList.remove('hidden');
-        butt.classList.add('block');
-      }
-    }
+  if (user.trusted) {
+    processModButtons();
   }
 }
 
