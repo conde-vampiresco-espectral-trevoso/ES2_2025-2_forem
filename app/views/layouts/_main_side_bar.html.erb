@@ -166,28 +166,12 @@
     if (!sidebar) return;
 
     const items = sidebar.querySelectorAll(".crayons-side-nav__item");
-    let hoverTimeout;
-    let hasMoved = false;
-    let lastMouseX = 0;
-    let lastMouseY = 0;
-
-    document.addEventListener("mousemove", (e) => {
-      lastMouseX = e.clientX;
-      lastMouseY = e.clientY;
-      hasMoved = true;
-    });
 
     items.forEach((item) => {
-      item.addEventListener("mouseleave", function () {
-        this.dataset.hasLeftOnce = "true";
-        if (this.classList.contains("hovered")) {
-          this.classList.remove("hovered");
-          this.classList.add("not-hovered");
-        }
-      });
-
-      item.addEventListener("mouseenter", function (e) {
-        if (!hasMoved && !this.dataset.hasLeftOnce) {
+      // Click handler to toggle menu
+      item.addEventListener("click", function (e) {
+        // Don't interfere with link clicks
+        if (e.target.tagName === 'A' && !e.target.closest('.crayons-side-nav__item')) {
           return;
         }
 
@@ -196,91 +180,91 @@
           ".crayons-side-nav__item.hovered",
         );
 
-        const switchActiveState = () => {
-          if (currentActive && currentActive !== targetItem) {
-            currentActive.classList.remove("hovered");
-            currentActive.classList.add("not-hovered");
-            
-            // Reset styles on the previous active item's pop-out card
-            const previousPreviewCard = currentActive.querySelector(".profile-preview-card__content");
-            if (previousPreviewCard) {
-              previousPreviewCard.style.position = '';
-              previousPreviewCard.style.left = '';
-              previousPreviewCard.style.top = '';
-              previousPreviewCard.style.bottom = '';
-              previousPreviewCard.style.width = '';
-              previousPreviewCard.style.zIndex = '';
-            }
-          }
-          targetItem.classList.remove("not-hovered");
-          targetItem.classList.add("hovered");
-          let feedEl = document.getElementById('root-feed-card');
-          if (feedEl) {
-            feedEl.scrollTop = 0;
-          }
-
-          // --- NEW LOGIC START ---
-          const previewCard = targetItem.querySelector(
-            ".profile-preview-card__content",
-          );
+        // If clicking the already active item, close it
+        if (currentActive === targetItem) {
+          currentActive.classList.remove("hovered");
+          currentActive.classList.add("not-hovered");
+          
+          const previewCard = currentActive.querySelector(".profile-preview-card__content");
           if (previewCard) {
-            const rect = targetItem.getBoundingClientRect();
-            
-            // Position the card relative to the viewport
-            previewCard.style.position = 'fixed';
-            previewCard.style.left = '48px';
-            previewCard.style.width = '290px';
-            previewCard.style.zIndex = '3000';
-            
-            if (window.innerHeight - rect.bottom < 280) {
-              previewCard.classList.add("profile-preview-card__upsidedown");
-              previewCard.style.top = 'auto';
-              previewCard.style.bottom = `${window.innerHeight - rect.bottom - 30}px`;
-            } else {
-              previewCard.classList.remove("profile-preview-card__upsidedown");
-              previewCard.style.top = `${rect.top - 30}px`;
-              previewCard.style.bottom = 'auto';
-            }
+            previewCard.style.position = '';
+            previewCard.style.left = '';
+            previewCard.style.top = '';
+            previewCard.style.bottom = '';
+            previewCard.style.width = '';
+            previewCard.style.zIndex = '';
           }
-          // --- NEW LOGIC END ---
-        };
-
-        clearTimeout(hoverTimeout);
-
-        let delay = 20;
-        const deltaX = e.clientX - lastMouseX;
-        const deltaY = e.clientY - lastMouseY;
-
-        if (deltaX > 10 && deltaX >= Math.abs(deltaY)) {
-          delay = 250;
+          return;
         }
 
+        // Close any currently active item
         if (currentActive && currentActive !== targetItem) {
-          hoverTimeout = setTimeout(switchActiveState, delay);
-        } else {
-          switchActiveState();
+          currentActive.classList.remove("hovered");
+          currentActive.classList.add("not-hovered");
+          
+          const previousPreviewCard = currentActive.querySelector(".profile-preview-card__content");
+          if (previousPreviewCard) {
+            previousPreviewCard.style.position = '';
+            previousPreviewCard.style.left = '';
+            previousPreviewCard.style.top = '';
+            previousPreviewCard.style.bottom = '';
+            previousPreviewCard.style.width = '';
+            previousPreviewCard.style.zIndex = '';
+          }
+        }
+
+        // Open the clicked item
+        targetItem.classList.remove("not-hovered");
+        targetItem.classList.add("hovered");
+        
+        let feedEl = document.getElementById('root-feed-card');
+        if (feedEl) {
+          feedEl.scrollTop = 0;
+        }
+
+        const previewCard = targetItem.querySelector(
+          ".profile-preview-card__content",
+        );
+        if (previewCard) {
+          const rect = targetItem.getBoundingClientRect();
+          
+          previewCard.style.position = 'fixed';
+          previewCard.style.left = '48px';
+          previewCard.style.width = '290px';
+          previewCard.style.zIndex = '3000';
+          
+          if (window.innerHeight - rect.bottom < 280) {
+            previewCard.classList.add("profile-preview-card__upsidedown");
+            previewCard.style.top = 'auto';
+            previewCard.style.bottom = `${window.innerHeight - rect.bottom - 30}px`;
+          } else {
+            previewCard.classList.remove("profile-preview-card__upsidedown");
+            previewCard.style.top = `${rect.top - 30}px`;
+            previewCard.style.bottom = 'auto';
+          }
         }
       });
     });
 
-    sidebar.addEventListener("mouseleave", () => {
-      clearTimeout(hoverTimeout);
-      const activeItem = sidebar.querySelector(
-        ".crayons-side-nav__item.hovered",
-      );
-      if (activeItem) {
-        activeItem.classList.remove("hovered");
-        activeItem.classList.add("not-hovered");
-        
-        // Reset any inline styles on the pop-out card
-        const previewCard = activeItem.querySelector(".profile-preview-card__content");
-        if (previewCard) {
-          previewCard.style.position = '';
-          previewCard.style.left = '';
-          previewCard.style.top = '';
-          previewCard.style.bottom = '';
-          previewCard.style.width = '';
-          previewCard.style.zIndex = '';
+    // Close menu when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!sidebar.contains(e.target)) {
+        const activeItem = sidebar.querySelector(
+          ".crayons-side-nav__item.hovered",
+        );
+        if (activeItem) {
+          activeItem.classList.remove("hovered");
+          activeItem.classList.add("not-hovered");
+          
+          const previewCard = activeItem.querySelector(".profile-preview-card__content");
+          if (previewCard) {
+            previewCard.style.position = '';
+            previewCard.style.left = '';
+            previewCard.style.top = '';
+            previewCard.style.bottom = '';
+            previewCard.style.width = '';
+            previewCard.style.zIndex = '';
+          }
         }
       }
     });
