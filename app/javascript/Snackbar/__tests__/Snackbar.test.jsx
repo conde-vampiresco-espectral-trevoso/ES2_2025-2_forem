@@ -1,4 +1,3 @@
-import { h } from 'preact';
 import { render, waitFor } from '@testing-library/preact';
 import { Snackbar, addSnackbarItem } from '../Snackbar';
 
