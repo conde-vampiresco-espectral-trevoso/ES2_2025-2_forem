@@ -155,6 +155,72 @@
     <%= render "shared/subforem_selection_modal" %>
   <% end %>
   
+  <%# Back to Top Button %>
+  <button 
+    id="back-to-top-button"
+    data-controller="scroll-to-top"
+    data-action="click->scroll-to-top#scrollToTop window@scroll->scroll-to-top#toggle"
+    class="back-to-top-button hidden"
+    aria-label="Back to top"
+    title="Back to top"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, rgb(var(--accent-brand-rgb)) 0%, rgb(var(--accent-brand-darker-rgb)) 100%); color: white; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <script>
+    (function() {
+      const button = document.getElementById('back-to-top-button');
+      const threshold = 300;
+      
+      function toggleButton() {
+        const scrollPosition = window.scrollY || window.pageYOffset;
+        if (scrollPosition > threshold) {
+          button.classList.remove('hidden');
+          button.classList.add('visible');
+        } else {
+          button.classList.remove('visible');
+          button.classList.add('hidden');
+        }
+      }
+      
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+      
+      // Initial check
+      toggleButton();
+      
+      // Listen to scroll events
+      window.addEventListener('scroll', toggleButton);
+      
+      // Listen to click events
+      button.addEventListener('click', scrollToTop);
+    })();
+  </script>
+  <style>
+    .back-to-top-button.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+    }
+    .back-to-top-button.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .back-to-top-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+    .back-to-top-button:active {
+      transform: translateY(-1px);
+    }
+  </style>
+  
   </body>
   </html>
 <% end %>
