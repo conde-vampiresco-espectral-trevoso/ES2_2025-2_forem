@@ -179,11 +179,10 @@ function buildTagsHTML(tag) {
     short_summary = `<p class="mb-6 fs-s color-base-70 truncate-at-3">${tag.short_summary}</p>`;
   }
 
-  // TODO: remove the data-follow-id and the data-tag-id in the child components
   return `
   <div class="dashboard__tag__container crayons-card p-3 pt-2 m:p-5 m:pt-4 relative flex flex-col single-article break-word content-center" id="follows-${
     tag.id
-  }" data-follow-id="${tag.id}" data-tag-id="${tag.tag_id}">
+  }" data-tag-id="${tag.tag_id}">
     <div class="mb-1 flex items-center justify-between">
       <h4 class="-ml-2">
       <a href="/t/${tag.name}" class="crayons-tag crayons-tag--l">
@@ -253,7 +252,7 @@ function fetchNextFollowersPage(el) {
 }
 
 function buildVideoArticleHTML(videoArticle) {
-  const allowedHostnames = ["youtube.com", "www.youtube.com"];
+  const allowedHostnames = ['youtube.com', 'www.youtube.com'];
   let videoUrl;
   try {
     videoUrl = new URL(videoArticle.video);
@@ -460,10 +459,15 @@ function paginate(tag, params, requiresApproval) {
   // Below is a some code to be able to toggle on the stories endpoint.
   // And if we do, we need to change the URL and adjust some misalignment with the API
   // And the nextpage incrementing.
-  let useStoriesFeed = (homeEl.dataset.feed === 'base-feed' || homeEl.dataset.feed === 'latest') && homeEl.dataset.feedContextType === 'home' && homeEl.dataset.feedUseStoriesEndpoint === 'true';
+  let useStoriesFeed =
+    (homeEl.dataset.feed === 'base-feed' || homeEl.dataset.feed === 'latest') &&
+    homeEl.dataset.feedContextType === 'home' &&
+    homeEl.dataset.feedUseStoriesEndpoint === 'true';
   let feedTypeOf = localStorage?.getItem('current_feed') || 'discover';
   let latestString = homeEl.dataset.feed === 'latest' ? '/latest' : '';
-  let url = useStoriesFeed ? `/stories/feed${latestString}/?page=${nextPage + 2}&type_of=${feedTypeOf}` : `/search/feed_content?${searchParams.toString()}`;
+  let url = useStoriesFeed
+    ? `/stories/feed${latestString}/?page=${nextPage + 2}&type_of=${feedTypeOf}`
+    : `/search/feed_content?${searchParams.toString()}`;
   fetch(url, {
     method: 'GET',
     headers: {
@@ -476,7 +480,7 @@ function paginate(tag, params, requiresApproval) {
     .then((response) => response.json())
     .then((content) => {
       nextPage += 1;
-      let resultsCollection = useStoriesFeed ? content : content.result
+      let resultsCollection = useStoriesFeed ? content : content.result;
       insertArticles(resultsCollection);
       const checkBlockedContentEvent = new CustomEvent('checkBlockedContent');
       window.dispatchEvent(checkBlockedContentEvent);

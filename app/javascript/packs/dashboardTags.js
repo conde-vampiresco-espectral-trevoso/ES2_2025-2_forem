@@ -49,7 +49,8 @@ function fetchFollows(body) {
 }
 
 function handleFollowingButtonClick(tagContainer) {
-  const { tagId, followId } = tagContainer.dataset;
+  const { tagId } = tagContainer.dataset;
+  const followId = tagContainer.id.replace('follows-', '');
 
   const data = {
     followable_type: 'Tag',
@@ -75,7 +76,8 @@ function handleFollowingButtonClick(tagContainer) {
 }
 
 function handleHideButtonClick(tagContainer) {
-  const { tagId, followId } = tagContainer.dataset;
+  const { tagId } = tagContainer.dataset;
+  const followId = tagContainer.id.replace('follows-', '');
 
   const data = {
     followable_type: 'Tag',
@@ -112,7 +114,8 @@ function handleHideButtonClick(tagContainer) {
 }
 
 function handleUnhideButtonClick(tagContainer) {
-  const { tagId, followId } = tagContainer.dataset;
+  const { tagId } = tagContainer.dataset;
+  const followId = tagContainer.id.replace('follows-', '');
 
   const data = {
     followable_type: 'Tag',
