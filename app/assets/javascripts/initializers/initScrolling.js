@@ -30,7 +30,7 @@ function fetchNext(el, endpoint, insertCallback, suffix) {
   }
 
   var fetchUrl =
-    `${endpoint}?page=${nextPage}&${urlParams}${suffix}&signature=${parseInt(
+    `${endpoint}?page=${nextPage}&${urlParams}${suffix}&signature=${Number.parseInt(
       Date.now() / 400000,
       10,
     )}`.replace('&&', '&');
